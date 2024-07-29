@@ -2,15 +2,45 @@
 
 A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+1 - Add this lines in project : 
 
-A few resources to get you started if this is your first Flutter project:
+- Andoridmanifest.xml :
+   android:enableOnBackInvokedCallback="true"
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ 2 -  android\app\build.gradel :
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    plugins {
+    id 'com.google.gms.google-services'
+    }
+    
+   dependencies{
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"    
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+   }
+
+3 - android\build.gradel : 
+
+ buildscript {
+    ext.kotlin_version = '2.0.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.13'
+        
+    }
+}
+}
+
+4- android\setting.gradel 
+
+ -     id "org.jetbrains.kotlin.android" version "2.0.0" apply false
+
+   
