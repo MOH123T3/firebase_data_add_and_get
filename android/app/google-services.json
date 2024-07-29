@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "538010010611",
+    "project_id": "form-builder-8ae3a",
+    "storage_bucket": "form-builder-8ae3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538010010611:android:7d3a8f11ffaea590f90886",
+        "android_client_info": {
+          "package_name": "com.example.form_view"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALtYjWSl7t-4XfRacYMxtOKrtsZ8-KQp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
