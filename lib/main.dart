@@ -40,6 +40,8 @@ class HomePage extends StatelessWidget {
                   Get.to(MyHome());
                 } else if (index == 1) {
                   Get.to(GetXHomePage());
+                } else if (index == 2) {
+                  Get.to(GetXHomePage());
                 } else {
                   Get.to(PostsPage());
                 }
