@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:form_view/bloc/exmp2/bloc/ui/home_ex.dart';
+import 'package:form_view/bloc/ui/home_screen.dart';
+import 'package:form_view/getx/ui/home_page.dart';
+import 'package:form_view/provider/home_provider.dart';
+import 'package:get/get.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,107 +14,51 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Firebase',
-      home: HomeScreen(),
+    return GetMaterialApp(
+      home: HomePage(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("data"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return AddData();
-                  },
-                ));
-              },
-              child: Text("Add Data Firebase")),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return ShowData();
-                  },
-                ));
-              },
-              child: Text("Show Data Firebase"))
-        ],
-      ),
-    );
-  }
-}
-
-class AddData extends StatelessWidget {
-  const AddData({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text("Add Data"),
-      ),
       body: Center(
-        child: FloatingActionButton(
-          backgroundColor: Colors.green,
-          child: Icon(Icons.add),
-          onPressed: () {
-            FirebaseFirestore.instance
-                .collection('data')
-                .add({'text': 'Hy Mohit'});
+        child: GridView.builder(
+          itemCount: 4,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
+          itemBuilder: (context, index) {
+            // ignore: avoid_unnecessary_containers
+            return InkWell(
+              onTap: () {
+                print(index);
+                if (index == 0) {
+                  Get.to(MyHome());
+                } else if (index == 1) {
+                  Get.to(GetXHomePage());
+                } else {
+                  Get.to(PostsPage());
+                }
+              },
+              child: Container(
+                margin: EdgeInsets.all(20),
+                alignment: Alignment.center,
+                color: Colors.amberAccent,
+                child: Text(index == 0
+                    ? "provider"
+                    : index == 1
+                        ? "getX "
+                        : index == 2
+                            ? "streams"
+                            : "BLoc"),
+              ),
+            );
           },
         ),
-      ),
-    );
-  }
-}
-
-class ShowData extends StatelessWidget {
-  const ShowData({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text("Show Data"),
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('data').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          return ListView(
-            children: snapshot.data!.docs.map((document) {
-              return Container(
-                child: Center(child: Text(document['text'])),
-              );
-            }).toList(),
-          );
-        },
       ),
     );
   }
